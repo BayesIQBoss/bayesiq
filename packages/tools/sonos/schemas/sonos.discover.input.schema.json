@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tool://sonos.discover/input",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "timeout_ms": {
+        "type": "integer",
+        "minimum": 500,
+        "maximum": 30000,
+        "default": 5000
+      }
+    }
+  }

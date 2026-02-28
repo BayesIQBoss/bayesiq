@@ -1,0 +1,33 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tool://github.pr.create_draft/input",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["repo", "base_branch", "head_branch", "title", "body", "draft"],
+    "properties": {
+      "repo": {
+        "type": "string",
+        "pattern": "^[^/]+/[^/]+$",
+        "description": "owner/repo"
+      },
+      "base_branch": { "type": "string", "minLength": 1 },
+      "head_branch": { "type": "string", "minLength": 1 },
+      "title": { "type": "string", "minLength": 1, "maxLength": 256 },
+      "body": { "type": "string", "maxLength": 20000 },
+      "draft": {
+        "type": "boolean",
+        "const": true,
+        "description": "Must be true in v0.1"
+      },
+      "labels": {
+        "type": "array",
+        "items": { "type": "string" },
+        "default": []
+      },
+      "assignees": {
+        "type": "array",
+        "items": { "type": "string" },
+        "default": []
+      }
+    }
+  }

@@ -1,0 +1,11 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tool://sonos.set_volume/input",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["speaker_id", "volume"],
+    "properties": {
+      "speaker_id": { "type": "string" },
+      "volume": { "type": "integer", "minimum": 0, "maximum": 100 }
+    }
+  }

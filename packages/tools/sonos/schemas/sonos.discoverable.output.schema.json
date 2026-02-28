@@ -1,0 +1,41 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tool://sonos.discover/output",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["speakers", "meta"],
+    "properties": {
+      "speakers": {
+        "type": "array",
+        "items": { "$ref": "#/$defs/Speaker" },
+        "default": []
+      },
+      "meta": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "fetched_at"],
+        "properties": {
+          "source": { "type": "string", "const": "sonos" },
+          "fetched_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "$defs": {
+      "Speaker": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["speaker_id", "name", "room", "capabilities"],
+        "properties": {
+          "speaker_id": { "type": "string", "description": "Stable id (e.g., UDN/UUID)" },
+          "name": { "type": "string" },
+          "room": { "type": "string" },
+          "ip": { "type": ["string", "null"], "default": null },
+          "capabilities": {
+            "type": "array",
+            "items": { "type": "string" },
+            "default": []
+          }
+        }
+      }
+    }
+  }

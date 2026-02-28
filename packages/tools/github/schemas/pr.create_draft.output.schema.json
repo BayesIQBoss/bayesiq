@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tool://github.pr.create_draft/output",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["pr_url", "pr_number", "repo", "base_branch", "head_branch", "meta"],
+    "properties": {
+      "pr_url": { "type": "string" },
+      "pr_number": { "type": "integer", "minimum": 1 },
+      "repo": { "type": "string" },
+      "base_branch": { "type": "string" },
+      "head_branch": { "type": "string" },
+      "meta": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "created_at"],
+        "properties": {
+          "source": { "type": "string", "const": "github" },
+          "created_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }

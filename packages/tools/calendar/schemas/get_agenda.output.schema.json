@@ -1,0 +1,85 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tool://calendar.google.get_agenda/output",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["events", "warnings", "meta"],
+    "properties": {
+      "events": {
+        "type": "array",
+        "items": { "$ref": "#/$defs/Event" },
+        "default": []
+      },
+      "warnings": {
+        "type": "array",
+        "items": { "$ref": "#/$defs/Warning" },
+        "default": []
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      }
+    },
+    "$defs": {
+      "Event": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["event_id", "start", "end", "title"],
+        "properties": {
+          "event_id": { "type": "string" },
+          "start": { "type": "string", "format": "date-time" },
+          "end": { "type": "string", "format": "date-time" },
+          "title": { "type": "string" },
+          "location": { "type": ["string", "null"], "default": null },
+          "attendees": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/Attendee" },
+            "default": []
+          },
+          "organizer": { "$ref": "#/$defs/Attendee" },
+          "is_all_day": { "type": "boolean", "default": false },
+          "url": { "type": ["string", "null"], "default": null },
+          "description": { "type": ["string", "null"], "default": null }
+        }
+      },
+      "Attendee": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["email"],
+        "properties": {
+          "email": { "type": "string" },
+          "display_name": { "type": ["string", "null"], "default": null },
+          "response_status": {
+            "type": ["string", "null"],
+            "enum": ["accepted", "declined", "tentative", "needsAction", null],
+            "default": null
+          }
+        }
+      },
+      "Warning": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "message"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["conflict", "back_to_back", "timezone", "truncated", "other"]
+          },
+          "message": { "type": "string" },
+          "event_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "default": []
+          }
+        }
+      },
+      "Meta": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "fetched_at"],
+        "properties": {
+          "source": { "type": "string", "const": "google_calendar" },
+          "fetched_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
