@@ -1,9 +1,24 @@
+# python
 .venv/
+__pycahce__/
 *.pyc
+.env
 bayesiq.egg*
 config/policy.yaml
 
+# local runtime state
+.local/
+data/
+logs/
+tmp/
+
 # databases
 *.db
-*.sqlite
-*.sqlite3
+*.sqlite*
+
+# Mac
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
