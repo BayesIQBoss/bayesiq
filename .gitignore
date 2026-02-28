@@ -2,4 +2,8 @@
 *.pyc
 bayesiq.egg*
 config/policy.yaml
+
+# databases
 *.db
+*.sqlite
+*.sqlite3
