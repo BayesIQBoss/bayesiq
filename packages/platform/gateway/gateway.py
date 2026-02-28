@@ -256,7 +256,7 @@ class ToolGateway:
                     details={"error": str(e)},
                     latency_ms=elapsed_ms,
                 )
-                dbrepo.finalize_tool_run(db, tool_run.tool_run_id, res.status, res.data, res.error or {}, elapsed_ms)
+                dbrepo.finalize_tool_run(db, tool_run_id, res.status, res.data, res.error or {}, elapsed_ms)
                 dbrepo.log_event(db, profile_id, session_id, "tool_failed", {"tool_name": tool_name, "request_id": request_id, "error": res.error})
                 return res
 
