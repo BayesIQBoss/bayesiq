@@ -1,0 +1,15 @@
+{
+    "package": "noop",
+    "tools": [
+      {
+        "name": "noop.execute",
+        "mode": "execute_gated",
+        "description": "Execute-gated no-op tool used to smoke test approvals end-to-end.",
+        "handler": "packages.tools.noop.tool:execute",
+        "schemas": {
+          "input": "schemas/execute.input.schema.json",
+          "output": "schemas/execute.output.schema.json"
+        }
+      }
+    ]
+  }

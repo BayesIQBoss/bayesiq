@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "tool://noop.execute/output",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["echo", "meta"],
+    "properties": {
+      "echo": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "The repeated message."
+      },
+      "meta": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "applied_at"],
+        "properties": {
+          "source": { "type": "string", "const": "noop" },
+          "applied_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }

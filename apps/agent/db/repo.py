@@ -2,9 +2,27 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional
 from sqlalchemy.orm import Session as DBSession
+from sqlalchemy import select
 
 from .models import Event, ToolRun, Approval
 
+from datetime import datetime, timezone
+
+
+def get_approval(db, approval_id: str) -> Approval | None:
+    return db.get(Approval, approval_id)
+
+def resolve_approval(db, approval_id: str, status: str) -> None:
+    ap: Approval = db.get(Approval, approval_id)
+    ap.status = status
+    ap.ts_resolved = datetime.now(timezone.utc)
+
+def get_tool_run(db, tool_run_id: str) -> ToolRun | None:
+    return db.get(ToolRun, tool_run_id)
+
+def list_approvals(db, status: str = "pending", limit: int = 20) -> list[Approval]:
+    stmt = select(Approval).where(Approval.status == status).order_by(Approval.ts_requested.desc()).limit(limit)
+    return list(db.execute(stmt).scalars().all())
 
 def log_event(
     db: DBSession,
