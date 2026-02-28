@@ -1,0 +1,15 @@
+{
+    "package": "calendar",
+    "tools": [
+      {
+        "name": "calendar.google.get_agenda",
+        "mode": "read_only",
+        "description": "Fetches agenda events from Google Calendar for a time range.",
+        "handler": "packages.tools.calendar.tool:get_agenda",
+        "schemas": {
+          "input": "schemas/get_agenda.input.schema.json",
+          "output": "schemas/get_agenda.output.schema.json"
+        }
+      }
+    ]
+  }

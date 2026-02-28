@@ -1,0 +1,13 @@
+[project]
+name = "bayesiq"
+version = "0.1.0"
+description = "BayesIQ Personal Assistant Platform"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["packages*", "apps*"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
