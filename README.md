@@ -1,0 +1,1 @@
+Personal, extensible home assistant used for things like calendar management, personal finance, groceries.

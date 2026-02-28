@@ -1,0 +1,31 @@
+timezone: "America/Chicago"
+
+execution:
+  default_mode: "read_only"   # read_only | draft | execute
+  approvals_required_for:
+    - "execute_gated"
+
+tools:
+  calendar.google:
+    mode: "read_only"
+
+  github.pr:
+    mode: "draft"
+    allowed_repos:
+      - "YOUR_GITHUB_ORG_OR_USER/bayesiq"
+    pr_rules:
+      draft_only: true
+      allow_merge: false
+      allow_push_to_main: false
+
+  sonos:
+    mode: "execute_gated"
+    allowed_rooms:
+      - "Living Room"
+      - "Dining Room"
+      - "Kitchen"
+    max_volume: 40
+    quiet_hours:
+      enabled: false
+      start: null
+      end: null
