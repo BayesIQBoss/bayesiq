@@ -84,7 +84,7 @@ def create_approval(
     tool_run_id: str,
     profile_id: str,
     context: Dict[str, Any],
-) -> Approval:
+) -> str:
     ap = Approval(
         tool_run_id=tool_run_id,
         profile_id=profile_id,
@@ -93,4 +93,4 @@ def create_approval(
     )
     db.add(ap)
     db.flush()
-    return ap
+    return ap.approval_id

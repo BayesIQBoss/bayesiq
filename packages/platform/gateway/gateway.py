@@ -161,10 +161,11 @@ class ToolGateway:
                 "reason": decision.reason or "Approval required",
                 "proposed_input": decision.sanitized_input,
             }
-            # Create approvals row
-            ap = dbrepo.create_approval(
+        
+            # ✅ INSERT approval row
+            approval_id = dbrepo.create_approval(
                 db,
-                tool_run_id,
+                tool_run_id,                 # this must be the string id returned by create_tool_run
                 profile_id=profile_id,
                 context=approval_payload,
             )
@@ -174,7 +175,7 @@ class ToolGateway:
                 tool_name=tool_name,
                 tool_version=self.tool_version,
                 request_id=request_id,
-                data={"approval_request": approval_payload, "approval_id": ap.approval_id},
+                data={"approval_request": approval_payload, "approval_id": approval_id},
                 error=None,
                 meta={
                     "latency_ms": self._ms_since(t0),
@@ -182,10 +183,27 @@ class ToolGateway:
                     "source": "gateway",
                 },
             )
-            dbrepo.finalize_tool_run(db, tool_run_id, res.status, res.data, {}, res.meta["latency_ms"])
-            dbrepo.log_event(db, profile_id, session_id, "approval_requested", {"tool_name": tool_name, "request_id": request_id, "approval_id": ap.approval_id})
+        
+            # ✅ UPDATE tool_run row
+            dbrepo.finalize_tool_run(
+                db,
+                tool_run_id,
+                status="approval_required",
+                output_json=res.data,
+                error_json={},
+                latency_ms=res.meta["latency_ms"],
+            )
+        
+            dbrepo.log_event(
+                db,
+                profile_id,
+                session_id,
+                "approval_requested",
+                {"tool_name": tool_name, "request_id": request_id, "approval_id": approval_id},
+            )
+        
             return res
-
+        
         # ---- Execute ----
         try:
             out = tool.fn(decision.sanitized_input, context)
