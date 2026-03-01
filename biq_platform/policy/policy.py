@@ -3,9 +3,9 @@ from __future__ import annotations
 from dataclasses import asdict
 from typing import Any, Dict
 
-from packages.platform.registry.types import ToolSpec
-from packages.platform.policy.types import PolicyDecision
-from packages.platform.policy.config import PolicyConfig
+from biq_platform.registry.types import ToolSpec
+from biq_platform.policy.types import PolicyDecision
+from biq_platform.policy.config import PolicyConfig
 
 
 class PolicyEngine:

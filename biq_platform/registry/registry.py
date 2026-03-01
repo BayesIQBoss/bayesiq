@@ -15,7 +15,7 @@ class ToolRegistryError(Exception):
 def _import_handler(handler: str):
     """
     handler format: "module.path:callable_name"
-    example: "packages.tools.calendar.tool:get_agenda"
+    example: "tools.calendar.tool:get_agenda"
     """
     if ":" not in handler:
         raise ToolRegistryError(f"Invalid handler '{handler}'. Expected 'module:callable'.")
@@ -34,11 +34,11 @@ def _load_json(p: Path) -> Dict[str, Any]:
 
 class ToolRegistry:
     """
-    Discovers tools by scanning packages/tools/**/manifest.json.
+    Discovers tools by scanning tools/**/manifest.json.
     """
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root
-        self.tools_root = repo_root / "packages" / "tools"
+        self.tools_root = repo_root / "tools"
         self._tools: Dict[str, Tool] = {}
 
     def discover(self) -> None:

@@ -1,5 +1,5 @@
 from pathlib import Path
-from packages.platform.registry.registry import ToolRegistry
+from biq_platform.registry.registry import ToolRegistry
 
 repo_root = Path(__file__).resolve().parents[1]
 r = ToolRegistry(repo_root)

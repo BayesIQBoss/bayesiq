@@ -8,9 +8,9 @@ from typing import Any, Dict, Optional
 from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError as JsonSchemaValidationError
 
-from packages.platform.errors import ErrorCode, ToolError
-from packages.platform.policy import PolicyEngine
-from packages.platform.registry.registry import ToolRegistry
+from biq_platform.errors import ErrorCode, ToolError
+from biq_platform.policy import PolicyEngine
+from biq_platform.registry.registry import ToolRegistry
 
 from storage.db.engine import db_session
 from storage.db import repo as dbrepo

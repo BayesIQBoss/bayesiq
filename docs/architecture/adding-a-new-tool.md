@@ -97,7 +97,7 @@ Example:
       "name": "calendar.google.get_agenda",
       "mode": "read_only",
       "description": "Retrieve calendar events.",
-      "handler": "packages.tools.calendar.tool:get_agenda",
+      "handler": "biq_packages.tools.calendar.tool:get_agenda",
       "schemas": {
         "input": "schemas/get_agenda.input.schema.json",
         "output": "schemas/get_agenda.output.schema.json"
@@ -107,7 +107,7 @@ Example:
 }
 ```
 
-The manifest registers the tool with the platform.
+The manifest registers the tool with the Bayes IQ platform.
 
 
 ---

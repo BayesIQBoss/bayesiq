@@ -5,9 +5,9 @@ import json
 import uuid
 from pathlib import Path
 
-from packages.platform.registry.registry import ToolRegistry
-from packages.platform.policy import PolicyEngine, load_policy_config
-from packages.platform.gateway import ToolGateway
+from biq_platform.registry.registry import ToolRegistry
+from biq_platform.policy import PolicyEngine, load_policy_config
+from biq_platform.gateway import ToolGateway
 
 from storage import db
 from storage.db.engine import db_session
