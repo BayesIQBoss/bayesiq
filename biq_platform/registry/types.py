@@ -13,7 +13,7 @@ class ToolSpec:
     """Static tool metadata discovered from a manifest."""
     name: str                              # e.g. "calendar.google.get_agenda"
     mode: ToolMode                         # read_only | draft | execute_gated
-    handler: str                           # e.g. "packages.tools.calendar.tool:get_agenda"
+    handler: str                           # e.g. "tools.calendar.tool:get_agenda"
     input_schema_path: Path                # absolute path to JSON schema
     output_schema_path: Optional[Path]     # absolute path to JSON schema (optional)
     description: str = ""                  # optional

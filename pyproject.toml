@@ -6,7 +6,7 @@ requires-python = ">=3.11"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["packages*", "apps*"]
+include = ["biq_packages*", "apps*", "platform", "tools", "storage"]
 
 [build-system]
 requires = ["setuptools", "wheel"]
