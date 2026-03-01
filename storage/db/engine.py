@@ -8,6 +8,7 @@ from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
+
 def get_database_url() -> str:
     url = os.getenv("DATABASE_URL")
     if url:
@@ -17,7 +18,7 @@ def get_database_url() -> str:
     db_path.parent.mkdir(parents=True, exist_ok=True)
     return f"sqlite:///{db_path}"
 
-_ENGINE = create_engine(get_database_url(), future=True, echo=False, connect_args={"check_same_thread": False})
+_ENGINE = create_engine(get_database_url(), future=True, echo=False, connect_args={'check_same_thread': False}) # echo=False, connect_args={"check_same_thread": False})
 _SessionLocal = sessionmaker(
     bind=_ENGINE,
     autoflush=False,
@@ -32,9 +33,13 @@ def engine():
 @contextmanager
 def db_session() -> Session:
     session: Session = _SessionLocal()
+    
+    from sqlalchemy import text
+    print("db_session conn:", session.execute(text("select hex(randomblob(4))")).scalar_one(), "id:", id(session))
+    
     try:
         yield session
-        session.commit()          # ✅ single source of truth
+        session.commit()
     except Exception:
         session.rollback()
         raise

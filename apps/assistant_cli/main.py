@@ -2,18 +2,20 @@ from __future__ import annotations
 
 import argparse
 import json
+import uuid
 from pathlib import Path
 
 from packages.platform.registry.registry import ToolRegistry
 from packages.platform.policy import PolicyEngine, load_policy_config
 from packages.platform.gateway import ToolGateway
 
-from apps.agent.db.engine import db_session
-from apps.agent.db import repo as dbrepo
+from storage import db
+from storage.db.engine import db_session
+from storage.db import repo as dbrepo
 
 
 def make_gateway() -> ToolGateway:
-    repo_root = Path(__file__).resolve().parents[2]  # apps/agent/cli.py -> repo root
+    repo_root = Path(__file__).resolve().parents[2]
     reg = ToolRegistry(repo_root)
     reg.discover()
 
@@ -31,9 +33,20 @@ def default_context() -> dict:
 def cmd_run(args):
     gw = make_gateway()
     ctx = default_context()
-
     payload = json.loads(args.json)
-    res = gw.run_tool(args.tool, payload, ctx)
+
+    with db_session() as db:
+        res = gw.run_tool(
+            tool_name=args.tool,
+            input_json=payload,
+            context=ctx,
+            db=db,
+            profile_id="dev",   # or args.profile if you have it
+            session_id="dev",   # or args.session
+            request_id=str(uuid.uuid4()),
+            timeout_ms=10_000,
+            validate_output=True,
+        )
 
     print("status:", res.status)
     if res.error:
@@ -49,7 +62,12 @@ def cmd_approve(args):
     gw = make_gateway()
     ctx = default_context()
 
-    res = gw.run_approved(args.approval_id, ctx)
+    with db_session() as db:
+        res = gw.run_approved(
+            approval_id=args.approval_id,
+            context=ctx,
+            db=db
+        )
 
     print("status:", res.status)
     if res.error:
