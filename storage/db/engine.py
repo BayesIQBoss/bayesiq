@@ -34,9 +34,6 @@ def engine():
 def db_session() -> Session:
     session: Session = _SessionLocal()
     
-    from sqlalchemy import text
-    print("db_session conn:", session.execute(text("select hex(randomblob(4))")).scalar_one(), "id:", id(session))
-    
     try:
         yield session
         session.commit()
